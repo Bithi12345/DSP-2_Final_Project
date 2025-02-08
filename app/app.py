@@ -16,8 +16,10 @@ average_montly_hours = st.sidebar.number_input("Average Monthly Hours", min_valu
 time_spend_company = st.sidebar.number_input("Years Spent in Company", min_value=1, max_value=20, value=3)
 Work_accident = st.sidebar.selectbox("Work Accident", [0, 1])
 promotion_last_5years = st.sidebar.selectbox("Promotion in Last 5 Years", [0, 1])
-department = st.sidebar.selectbox("Department", ['sales', 'technical', 'support', 'IT', 'product_mng', 'marketing', 'RandD', 'accounting', 'hr', 'management'])
+Departments = st.sidebar.selectbox("Departments", ['sales', 'technical', 'support', 'IT', 'product_mng', 'marketing', 'RandD', 'accounting', 'hr', 'management'])
 salary = st.sidebar.selectbox("Salary Level", ["low", "medium", "high"])
+
+work_hours_per_project = average_montly_hours / number_project if number_project > 0 else 0
 
 # Encode categorical variables
 salary_mapping = {"low": 0, "medium": 1, "high": 2}
@@ -32,14 +34,15 @@ input_data = {
     "time_spend_company": time_spend_company,
     "Work_accident": Work_accident,
     "promotion_last_5years": promotion_last_5years,
-    "department": department,
-    "salary": salary_encoded
+    "Departments": Departments,
+    "salary": salary_encoded,
+    "work_hours_per_project": work_hours_per_project
 }
 
 input_data_df = pd.DataFrame([input_data])
 
 # Load trained model
-model_path = "src/models/hr_model_pipeline.pkl"
+model_path = "..\models\model_with_pipeline.pkl"
 
 
 try:
